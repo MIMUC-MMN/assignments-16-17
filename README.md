@@ -3,10 +3,10 @@ Public repo for student-contributed solutions for the assignments (Online Multim
 
 ## How to contribute ##
 We assume you have git installed on your machine. If not, download it here: https://git-scm.com/
- 
+
 ### Step 1: Create a GitHub account ###
 1. Create a GitHub account here: https://github.com/join
-2. Create an SSH-key for your machine by executing `ssh-keygen` in either bash or Git-Bash. 
+2. Create an SSH-key for your machine by executing `ssh-keygen` in either bash or Git-Bash.
 Follow the instructions. It's not a bad idea to protect the key with a password, but it's not
 absolutely necessary if you're on a private computer.
 3. Copy the SSH-key that you find in `~/.ssh/id_rsa.pub`
@@ -19,8 +19,9 @@ This is the URL to do that: https://github.com/settings/keys
 2. Clone this repository to your own machine. `git clone git@github.com:MIMUC-MMN/assignments-16-17.git`
 3. Fork the repository: https://github.com/MIMUC-MMN/assignments-16-17#fork-destination-box (click the "Fork" Button)
 4. Add the repository as remote origin: `git remote add myfork <YOUR_REPOSITORY_URL>`
-5. Set the upstream branch to your own repo: `git branch -u myfork/master`
-6. Push your code and when you're happy with it, create a Pull Request (PR) on GitHub.
+5. Do this: `git pull myfork master`
+6. Set the upstream branch to your own repo: `git branch -u myfork/master`
+7. Push your code and when you're happy with it, create a Pull Request (PR) on GitHub.
 
 ### Notes ###
 - We will merge your repos as they are, but sometime we make small modifications or comments
@@ -29,5 +30,5 @@ Resolve any conflicts on your machine before pushing.
 - It's probably best if you somehow prefix your folder names with your initials / name / alias. Like so: `darkwingDuck_task01`, `darkwingDuck_task02`... you get the idea  
 
 ## Help! ##
-If you're stuck, don't worry. We'll help you either before/after the tutorials or on Slack: 
-https://mimuc.slack.com/messages/mmn-ws1617 
+If you're stuck, don't worry. We'll help you either before/after the tutorials or on Slack:
+https://mimuc.slack.com/messages/mmn-ws1617

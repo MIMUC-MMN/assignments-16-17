@@ -15,14 +15,14 @@
 <form method="POST">
 ```
 - Problem: the site is vulnerable to XSS, since the user can embed `<script>` tags in the input fields to make XSS
-  - Fix: to prevent that, we convert html to text by using the PHP htmlspecialchars() function
+  - Fix: to prevent that, we convert html to text by using the PHP `htmlspecialchars()` function
 ```php
 $email = htmlspecialchars($_POST['email']);
 $password = htmlspecialchars($_POST['password']);
 loginUser($email, $password);
 ```
 - Problem: the site is vulnerable to SQL Injection, since user can concatenate strings to make SQL Injection (assumed that the login function simply does the login and no further validations)
-  - Fix: there are multiple ways to prevent SQL Injection, one is by using the 
+  - Fix: there are multiple ways to prevent SQL Injection, one is by using the `real_escape_string()` function
 ```php
 $mysqli->real_escape_string() function:
 
@@ -37,7 +37,7 @@ $password = $mysqli->real_escape_string($password);
 loginUser($email, $password);
 ```
 - Problem: the submitted parameters might not exist or is NULL
-  - Fix: we check the submitted parameters by using the PHP isset() function:
+  - Fix: we check the submitted parameters by using the PHP `isset()` function:
 ```php
 if (isset($_POST['submit'],$_POST['email'], $_POST['password']))
 ```

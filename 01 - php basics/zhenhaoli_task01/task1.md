@@ -36,8 +36,8 @@ $password = $mysqli->real_escape_string($password);
 
 loginUser($email, $password);
 ```
-5. Problem: the submitted parameters might not exist or is NULL
-Fix: we check the submitted parameters by using the PHP isset() function:
+- Problem: the submitted parameters might not exist or is NULL
+  - Fix: we check the submitted parameters by using the PHP isset() function:
 ```php
 if (isset($_POST['submit'],$_POST['email'], $_POST['password']))
 ```

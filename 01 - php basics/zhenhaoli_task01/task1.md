@@ -24,13 +24,6 @@ loginUser($email, $password);
 - Problem: the site is vulnerable to SQL Injection, since user can concatenate strings to make SQL Injection (assumed that the login function simply does the login and no further validations)
   - Fix: there are multiple ways to prevent SQL Injection, one is by using the `real_escape_string()` function
 ```php
-$mysqli->real_escape_string() function:
-
-$email = htmlspecialchars($_POST['email']);
-$password = htmlspecialchars($_POST['password']);
-
-$mysqli = new mysqli("host", "user", "password", "database");
-
 $email = $mysqli->real_escape_string($email);
 $password = $mysqli->real_escape_string($password);
 

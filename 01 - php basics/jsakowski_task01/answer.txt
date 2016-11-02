@@ -1,0 +1,2 @@
+** the form should use a POST request to not see the password in the URL
+** the input fields don't have name property; required for passing the value on form submit

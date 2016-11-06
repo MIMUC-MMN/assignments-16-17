@@ -1,0 +1,11 @@
+a)
+HTTP ist "stateless", d.h. jede (bereits durchgeführte) Anfrage mit ihrer zugehörigen Antwort wird wieder vergessen - sofern dies nicht zwischengespeichert wird. Cookies machen genau das und lösen somit dieses Problem, indem sie wichtige/relevante - aber keine großen! - Daten direkt beim Client speichern.
+
+b)
+Weil der Browser sonst nicht bzw. zu spät weiß, dass Cookie-basierte Sessions verwendet werden sollen. Dafür wird ein spezieller Header erstellt - und Output wird natürlich erst im <body>-Teil ausgegeben.
+
+c)
+"Serialisiert" i.A. bedeutet, dass Daten/Informationen in eine Sequenz von Bytes umgewandelt werden, um in der Lage zu sein, sie verschicken zu können, und nach dem Empfangen aber auch wieder korrekt auslesen zu können. Ein bekanntes Datenformat hierfür wäre z.B. JSON, das Daten, und insbesondere "encapsulated objects", als Key-Value-Paare in lesbarer Textform abspeichert und darstellt. Das macht es extrem einfach, die Daten zu versenden, und (auf welcher Plattform auch immer) wieder zu "entpacken" und darzustellen.
+
+d)
+Cookie wurde gelöscht, also hat er keinen Namen mehr?!

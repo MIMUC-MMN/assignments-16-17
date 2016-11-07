@@ -1,0 +1,75 @@
+.app {
+    margin-top: 50px;
+    text-align: center;
+}
+.row {
+    margin: 0px 30px;
+}
+.row .form-control {
+    width: 40px;
+}
+.form-control {
+    text-transform: uppercase;
+}
+.alert {
+    color: red;
+}
+.button {
+    margin-top: 10px;
+}
+.red-spot {
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    background-color: red;
+    justify-content:
+    center; display:
+    flex; color:
+    white; font-size: 35px;
+    margin: 10px;
+}
+.black-spot {
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    background-color: black;
+    justify-content:
+    center; display:
+    flex; color:
+    white; font-size: 35px;
+    margin: 10px;
+}
+.white-spot {
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    border-style: solid;
+    border-color: blue;
+    background-color: white;
+    justify-content:
+    center; display:
+    flex; color:
+    white; font-size: 35px;
+    margin: 10px;
+}
+.result {
+    text-align: center;
+}
+.result-text {
+    margin-right: 20px;
+}
+.result-text > p {
+    display: table-cell;
+    height: 50px;
+    vertical-align: middle;
+}
+.result div{
+    display: inline-block;
+}
+.rank {
+    text-align: center;
+}
+.rank div {
+    display: inline-block;
+    margin-top: 20px;
+}

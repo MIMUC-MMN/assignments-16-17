@@ -49,6 +49,13 @@ $attempts = count($_SESSION['guesses']);
 $hasTried10times = $attempts>=10;
 $hasWon = (end($_SESSION['guesses'])['guessed_code'] === $_SESSION['secretcode']);
 $hasGameEnd = ($hasTried10times || $hasWon);
+
+if($hasWon && isset($_POST['playername'])){
+  $players = isset($_COOKIE['players']) ? json_decode($_COOKIE['players'], true) : [];
+  $players[] = array("name" => $_POST['playername'], "attempts" => $attempts, "date" => date('Y-m-d H:i:s'));
+  setcookie('players', json_encode($players));
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,6 +123,18 @@ $hasGameEnd = ($hasTried10times || $hasWon);
     <button class="btn btn-success" name="submit" type="submit" <?=$hasGameEnd ? "disabled" : ""?>>Check</button>
     <button class="btn btn-danger btn-block" name="reset" type="submit" style="margin-top: 10px">New Game</button>
   </form>
+
+  <table>
+    <tr><th>Name</th><th>Guesses</th><th>Date</th></tr>
+    <?php foreach(json_decode($_COOKIE['players'], true) as $player): ?>
+      <tr><th><?=$player['name']?></th><th><?=$player['attempts']?></th><th><?=$player['date']?></th></tr>
+    <?php endforeach; ?>
+  </table>
+  <form method="post" style="margin-top: 20px">
+    <input name="playername">
+    <button class="btn btn-success" name="submit_playerdata" type="submit" <?=$hasGameEnd ? "disabled" : ""?>>Check</button>
+  </form>
+
 </div>
 </body>
 </html>

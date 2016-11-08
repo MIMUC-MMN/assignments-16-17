@@ -44,7 +44,7 @@ $has_won = (end($_SESSION['guesses'])['guessed_code'] === $_SESSION['secretcode'
 $has_game_end = ($has_tried_10_times || $has_won);
 $secretcode = implode(" ", $_SESSION['secretcode']);
 
-$players = isset($_COOKIE['players']) ? json_decode($_COOKIE['players'], true) : []; //init players to be saved in cookie
+$players = isset($_COOKIE['players']) ? json_decode($_COOKIE['players'], true) : []; //read players from cookie or init if not in cookie
 if(isset($_POST['playername'], $_POST['save']) && $has_won){ //when player wins, name can be entered and saved on leaderboard
   $players[] = array("name" => $_POST['playername'], "attempts" => $attempts, "date" => date('Y-m-d H:i:s'));
   setcookie('players', json_encode($players));

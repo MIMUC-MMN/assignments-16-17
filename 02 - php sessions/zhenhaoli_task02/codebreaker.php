@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-if(isset($_POST['reset'])){ //when loading a new game
-  session_unset();
-  session_destroy();
-  header("Refresh:0"); //reload to get a new secret code and to init other needed variables
+if(isset($_POST['reset'])){ //when reset then load a new game
+  loadNewGame();
 }
 
 if(!isset($_SESSION['secretcode'])) { //generate a secret code for the session
@@ -18,8 +16,8 @@ if (!isset($_SESSION['guesses'])) $_SESSION['guesses'] = []; //our guess history
 if(isset($_POST['letters'], $_POST['submit'])) {
   $guessed_code = array_map("strtoupper", $_POST['letters']); //to make lower capped input valid
 
-  $has_guess_invalid_input = array_reduce($guessed_code, function ($isInRange, $letter){ //only allow letter A - G
-    return $isInRange || !in_array($letter, range('A', 'G'));
+  $has_guess_invalid_input = array_reduce($guessed_code, function ($is_in_range, $letter){ //only allow letter A - G
+    return $is_in_range || !in_array($letter, range('A', 'G')); //using boolean algebra to check
   });
 
   $has_guess_duplicates = (count($guessed_code) !== count(array_unique($guessed_code)));
@@ -33,7 +31,7 @@ if(isset($_POST['letters'], $_POST['submit'])) {
     }
     sort($colors); //so the colors will be displayed in the order as the task2 requires
 
-    $_SESSION['guesses'][] = array('guessed_code' => $guessed_code, 'colors' => $colors);
+    $_SESSION['guesses'][] = array('guessed_code' => $guessed_code, 'colors' => $colors); //set our guess session var
   }
 }
 
@@ -44,14 +42,20 @@ $has_tried_10_times = $attempts>=10;
 $remain = 10-$attempts;
 $has_won = (end($_SESSION['guesses'])['guessed_code'] === $_SESSION['secretcode']);
 $has_game_end = ($has_tried_10_times || $has_won);
-$secretcode = join("&nbsp;", $_SESSION['secretcode']);
+$secretcode = implode(" ", $_SESSION['secretcode']);
 
-if($hasWon && isset($_POST['playername'], $_POST['submit'])){ //when player wins, name can be entered to be saved on leaderboard
-  $players = isset($_COOKIE['players']) ? json_decode($_COOKIE['players'], true) : [];
+$players = isset($_COOKIE['players']) ? json_decode($_COOKIE['players'], true) : []; //init players to be saved in cookie
+if(isset($_POST['playername'], $_POST['save']) && $has_won){ //when player wins, name can be entered and saved on leaderboard
   $players[] = array("name" => $_POST['playername'], "attempts" => $attempts, "date" => date('Y-m-d H:i:s'));
   setcookie('players', json_encode($players));
+  loadNewGame();
 }
 
+function loadNewGame() {
+  session_unset();
+  session_destroy();
+  header("Refresh:0"); //reload to get a new secret code and to init other needed variables
+}
 function print_message_if($condition, $message, $style){ //print html only if condition is met
   return $condition ? "<p style='$style'>$message</p>" : '';
 }
@@ -110,17 +114,29 @@ function print_message_if($condition, $message, $style){ //print html only if co
     <button class="btn btn-danger btn-block" name="reset" type="submit" style="margin-top: 10px">New Game</button>
   </form>
 
-  <table>
+  <?=print_message_if($has_won, "Enter your name below to be on the leaderboard!", "color: green; font-size: 1.5em;")?>
+
+  <h3>Leaderboard</h3>
+  <form method="post" style="margin-top: 20px">
+    <input name="playername" style="height:2.5em;">
+    <button class="btn btn-success" name="save" type="submit" <?=$has_won ? "" : "disabled"?>>Save Name</button>
+  </form>
+  <table class="table table-condensed">
     <tr><th>Name</th><th>Guesses</th><th>Date</th></tr>
-    <?php foreach(json_decode($_COOKIE['players'], true) as $player): ?>
+    <?php foreach($players as $player): ?>
       <tr><th><?=$player['name']?></th><th><?=$player['attempts']?></th><th><?=$player['date']?></th></tr>
     <?php endforeach; ?>
   </table>
-  <form method="post" style="margin-top: 20px">
-    <input name="playername">
-    <button class="btn btn-success" name="submit" type="submit" <?=$hasGameEnd ? "disabled" : ""?>>Check</button>
-  </form>
 
+  <h3>How to Play</h3>
+  <ul>
+    <li>Guess 4 unique letters of A, B, C, D, E, F, G</li>
+    <li>You have ten attempts max.</li>
+    <li>Red Dots indicate correct letters are at the correct position.</li>
+    <li>Black Dots indicate letters are in the secretcode but at a false position.</li>
+    <li>White Dots indicate letters are not contained in the code at all.</li>
+  </ul>
+  <script>console.log('<?=$secretcode?>')</script> <!--debug-->
 </div>
 </body>
 </html>

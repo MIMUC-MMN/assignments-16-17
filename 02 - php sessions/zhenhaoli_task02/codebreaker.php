@@ -124,7 +124,7 @@ function print_message_if($condition, $message, $style){ //print html only if co
   <table class="table table-condensed">
     <tr><th>Name</th><th>Guesses</th><th>Date</th></tr>
     <?php foreach($players as $player): ?>
-      <tr><th><?=$player['name']?></th><th><?=$player['attempts']?></th><th><?=$player['date']?></th></tr>
+      <tr><td><?=$player['name']?></td><td><?=$player['attempts']?></td><td><?=$player['date']?></td></tr>
     <?php endforeach; ?>
   </table>
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once './Utils.php';
+
 abstract class DBConnection
 {
   // --- ATTRIBUTES ---
@@ -30,7 +32,7 @@ abstract class DBConnection
     if($this->_database->connect_error){
       printf("Verbindung fehlgeschlagen:%s\n", mysqli_connect_error());
     }
-    session_start();
+    Utils::start_session_onlyif_no_session();
     error_reporting(E_ALL);
   }
 

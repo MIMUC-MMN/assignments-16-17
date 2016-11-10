@@ -55,4 +55,22 @@ VALUES (NULL, '$username', '$hashed');";
     return $this->_database->error;
   }
 
+
+  function find_user_by_name($name){
+    if($this->_database){
+      $sql = "
+SELECT *
+FROM `notetaker`.`user` u
+WHERE u.`username` = '$name';";
+
+      if($users = $this->_database->query($sql)) {
+        return $users->fetch_assoc();
+      }
+      else {
+        return $this->_database->error;
+      }
+    }
+    return $this->_database->error;
+  }
+
 }

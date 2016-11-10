@@ -1,12 +1,14 @@
 <?php
+
 /* 1. get submiited vars
    2. insert into db
-   3. if success redirect to login and message sucecesfull register
+   3. if success redirect to login and message successful register
    4. if fail then register again
 */
 
 require_once './UserDAO.php';
 require_once './Utils.php';
+Utils::start_session_onlyif_no_session();
 
 if(isset($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
   if (Utils::empty_some($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
@@ -21,8 +23,8 @@ if(isset($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
 
     $msg = $userDAO->add_user($username, $password);
     if(Utils::contains('Successfully', $msg)){
-      include ("./login.php"); //TOASK: how to redirect better
-      return;
+      $_SESSION['user_registered_msg'] = $msg;
+      Utils::redirect('./login.php');
     }
 
 

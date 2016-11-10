@@ -6,22 +6,26 @@
 */
 
 require_once './UserDAO.php';
-
-function empty_some(){
-  return array_reduce(func_get_args(), function ($empty, $param){
-    return $empty || empty($param) || ctype_space($param);
-  });
-}
+require_once './Utils.php';
 
 if(isset($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
-  if (empty_some($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
+  if (Utils::empty_some($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
     $msg = 'Some fields were empty, please make sure to fill all fields!';
   } else if ($_POST['password'] === $_POST['rpassword']) {
-    //db op
+
+    //db operations
     $userDAO = new UserDAO();
+
     $username = $userDAO->sanitize_input($_POST['username']);
     $password = $userDAO->sanitize_input($_POST['password']);
-    if($userDAO->add_user($username, $password));
+
+    $msg = $userDAO->add_user($username, $password);
+    if(Utils::contains('Successfully', $msg)){
+      include ("./login.php"); //TOASK: how to redirect better
+      return;
+    }
+
+
   } else {
     $msg = 'Password do not match, please try again!';
   }

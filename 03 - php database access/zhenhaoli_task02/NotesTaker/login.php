@@ -1,3 +1,9 @@
+<?php
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +23,7 @@
 
 <div class="row" style="margin-top: 10px">
   <form class="col s12 m4 offset-m4">
+    <p class="green-text center-align"><?=isset($msg)? $msg : ''?></p>
 
     <div class="row">
       <div class="input-field col s12">

@@ -23,9 +23,9 @@ abstract class DBConnection
   {
     //$this->_database = /* to do: create instance of class MySQLi */;
     $hostname="localhost";
-    $username="root";
-    $password="1234";
-    $databaseName="pizzaservice";
+    $username="mmn";
+    $password="mmn";
+    $databaseName="notetaker";
     $this->_database = new mysqli($hostname, $username, $password, $databaseName);
     if($this->_database->connect_error){
       printf("Verbindung fehlgeschlagen:%s\n", mysqli_connect_error());

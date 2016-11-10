@@ -1,6 +1,7 @@
 <?php
 
-/* 1. get submiited vars
+/*
+   1. get submitted vars
    2. insert into db
    3. if success redirect to login and message successful register
    4. if fail then register again
@@ -26,7 +27,6 @@ if(isset($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
       $_SESSION['user_registered_msg'] = $msg;
       Utils::redirect('./login.php');
     }
-
 
   } else {
     $msg = 'Password do not match, please try again!';

@@ -3,7 +3,7 @@
 require_once './DBConnection.php';
 require_once './Utils.php';
 
-class UserDAO extends DBConnection
+class NoteDao extends DBConnection
 {
 
   function __construct()

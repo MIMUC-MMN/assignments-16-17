@@ -10,6 +10,11 @@ if(isset($_SESSION['user_registered_msg'])) {
   unset($_SESSION['user_registered_msg']);
 }
 
+if(isset( $_SESSION['logged_out_msg'])){
+  $msg =  $_SESSION['logged_out_msg'];
+  unset($_SESSION['logged_out_msg']);
+}
+
 if(isset($_POST['username'], $_POST['password'])){
 
   if (Utils::empty_some($_POST['username'], $_POST['password'])) {
@@ -24,6 +29,8 @@ if(isset($_POST['username'], $_POST['password'])){
     } else if(is_array($user)){
       if(password_verify($password, $user['password'])){
         $msg = 'Successfully logged in!';
+        $_SESSION['user'] = $user;
+        Utils::redirect('./index.php');
       } else {
         $err = 'Wrong password, please try again!';
       }

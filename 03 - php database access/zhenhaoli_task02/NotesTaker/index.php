@@ -1,3 +1,14 @@
+<?php
+
+require_once './Utils.php';
+
+Utils::start_session_onlyif_no_session();
+
+if(isset($_SESSION['user'])){ //user is logged in
+  var_dump($_SESSION['user']);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +25,7 @@
     <a href="#" class="brand-logo">&nbsp;Notes</a>
     <ul id="nav-mobile" class="right">
       <li style="margin-right: 10px"><i class="material-icons left">account_circle</i>Wildbery</li>
-      <li class="hide-on-med-and-down" ><a href="#"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+      <li class="hide-on-med-and-down" ><a href="logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
     </ul>
   </div>
 </nav>

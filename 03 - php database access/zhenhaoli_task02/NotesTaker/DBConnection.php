@@ -47,4 +47,14 @@ abstract class DBConnection
     $this->_database->close();
   }
 
+
+  /**
+   * useful to sanitize data before trying to insert it into the database.
+   * @param $string String to be escaped from malicious SQL statements
+   * @return $string sanitized string
+   */
+  public function sanitize_input($string){
+    return $this->_database->real_escape_string($string);
+  }
+
 }

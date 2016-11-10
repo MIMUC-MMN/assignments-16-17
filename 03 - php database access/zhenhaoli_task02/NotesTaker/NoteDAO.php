@@ -3,7 +3,7 @@
 require_once './DBConnection.php';
 require_once './Utils.php';
 
-class NoteDao extends DBConnection
+class NoteDAO extends DBConnection
 {
 
   function __construct()
@@ -14,6 +14,31 @@ class NoteDao extends DBConnection
   function __destruct()
   {
     parent::__destruct();
+  }
+
+
+  /**
+   * creates a database record for the given $username and $password.
+   * @param $username String name of the user
+   * @param $password String password of the user
+   * @return string message to inform about the result of the db operation
+   */
+  function add_note($title, $text, $userid){
+
+    if($this->_database){
+      $sql = "
+INSERT INTO `notetaker`.`note` 
+(`id`, `title`, `text`, `userid`) 
+VALUES (NULL, '$title', '$text', '$userid');";
+
+      if(!$this->_database->query($sql)) {
+          return $this->_database->error;
+      }
+      else {
+        return "Successfully added note!";
+      }
+    }
+    return $this->_database->error;
   }
 
 

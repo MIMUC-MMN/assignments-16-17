@@ -1,11 +1,20 @@
 <?php
 
+require_once './NoteDAO.php';
 require_once './Utils.php';
 
 Utils::start_session_onlyif_no_session();
 
 if(isset($_SESSION['user'])){ //user is logged in
   var_dump($_SESSION['user']);
+
+  $noteDAO = new NoteDAO();
+  //TODO get value from POST
+  $msg = $noteDAO->add_note($title, $password, $_SESSION['user']['id']);
+  if(Utils::contains('Successfully', $msg)){
+    $_SESSION['user_registered_msg'] = $msg;
+    Utils::redirect('./login.php');
+  }
 }
 
 ?>

@@ -32,7 +32,7 @@ INSERT INTO `notetaker`.`note`
 VALUES (NULL, '$title', '$text', '$userid');";
 
       if(!$this->_database->query($sql)) {
-          return $this->_database->error;
+        return $this->_database->error;
       }
       else {
         return "Successfully added note!";
@@ -41,36 +41,6 @@ VALUES (NULL, '$title', '$text', '$userid');";
     return $this->_database->error;
   }
 
-
-  /**
-   * creates a database record for the given $username and $password.
-   * @param $username String name of the user
-   * @param $password String password of the user
-   * @return string message to inform about the result of the db operation
-   */
-  function add_user($username,$password){
-
-    $hashed = password_hash($password,PASSWORD_DEFAULT);
-
-    if($this->_database){
-      $sql = "
-INSERT INTO `notetaker`.`user` 
-(`id`, `username`, `password`) 
-VALUES (NULL, '$username', '$hashed');";
-
-      if(!$this->_database->query($sql)) {
-        $is_username_taken = Utils::contains('Duplicate', $this->_database->error);
-        if($is_username_taken)
-          return "Username already exists, please choose another name!";
-        else
-          return $this->_database->error;
-      }
-      else {
-        return "Successfully registered, now you can log in!";
-      }
-    }
-    return $this->_database->error;
-  }
 
   /**
    * find a user record by the username
@@ -88,6 +58,25 @@ WHERE u.`username` = '$name';";
         return $users->fetch_assoc();
       }
       else {
+        return $this->_database->error;
+      }
+    }
+    return $this->_database->error;
+  }
+
+  function find_all_notes_by_userid($userid)
+  {
+    if ($this->_database) {
+      $sql = "
+SELECT *
+FROM `notetaker`.`note` n
+WHERE n.`userid` = '$userid';";
+
+      if ($notes = $this->_database->query($sql)) {
+        $fetched_notes = [];
+        while ($fetched_notes [] =  $notes->fetch_assoc());
+        return $fetched_notes;
+      } else {
         return $this->_database->error;
       }
     }

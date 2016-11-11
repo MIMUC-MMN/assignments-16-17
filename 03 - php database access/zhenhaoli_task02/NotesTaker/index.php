@@ -12,15 +12,14 @@ if(isset($_SESSION['user'])) { //user is logged in
     $title = $noteDAO->sanitize_input($_POST['title']);
     $content = $noteDAO->sanitize_input($_POST['content']);
 
-    //TODO get value from POST
     $msg = $noteDAO->add_note($title, $content, $userid);
   }
   $notes = array_filter($noteDAO->find_all_notes_by_userid($userid), function ($note){
     return !is_null($note);
   });
-  var_dump($notes);
+
   if (!is_array($notes)) {
-    $err = 'Adding note failed, please try again!';
+    $err = 'Getting notes failed, please try again!';
     $notes = [];
   }
 } else {
@@ -55,6 +54,7 @@ if(isset($_SESSION['user'])) { //user is logged in
       Notes
       <i id="addNewNote" class="medium material-icons right">add_circle</i>
     </h3>
+    <h4 class="green-text center-align"><?=isset($msg)? $msg : ''?></h4>
     <div class="divider"></div>
   </div>
 </div>

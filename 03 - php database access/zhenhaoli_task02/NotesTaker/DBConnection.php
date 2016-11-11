@@ -23,23 +23,10 @@ abstract class DBConnection
    */
   protected function __construct()
   {
-    //$this->_database = /* to do: create instance of class MySQLi */;
-
-    $mode = 1;
-
-    if($mode === 0) {
-
       $hostname = "localhost";
       $username = "mmn";
       $password = "mmn";
       $databaseName = "notetaker";
-    } else {
-
-      $hostname = "zhenhao.li.mysql";
-      $username = "zhenhao_li";
-      $password = "WsfHSFCB";
-      $databaseName = "zhenhao_li";
-    }
 
     $this->_database = new mysqli($hostname, $username, $password, $databaseName);
     if($this->_database->connect_error){

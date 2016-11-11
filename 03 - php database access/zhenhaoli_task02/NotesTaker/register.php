@@ -8,7 +8,8 @@
 */
 
 require_once './dao/UserDAO.php';
-require_once './Utils.php';
+require_once './utils/Utils.php';
+
 Utils::start_session_onlyif_no_session();
 
 if(isset($_POST['username'], $_POST['password'], $_POST['rpassword'])) {

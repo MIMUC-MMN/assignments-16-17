@@ -1,21 +1,26 @@
 <?php
 
 require_once './dao/NoteDAO.php';
-require_once './Utils.php';
+require_once './bo/AuthBO.php';
+require_once './controller/NoteController.php';
+require_once './utils/Utils.php';
 
 Utils::start_session_onlyif_no_session();
 
+$auth_bo = AuthBO::Instance(new UserDAO());
 
+if($auth_bo->is_user_logged_in()) {
 
-if(isset($_SESSION['user'])) { //user is logged in
-  $userid = $_SESSION['user']['id'];
-  $noteDAO = new NoteDAO();
+  $note_controller = NoteController::Instance(new NoteDAO());
 
-  add_new_note($noteDAO, $userid, $msg, $err);
-  update_note($noteDAO, $msg, $err);
-  delete_note($noteDAO, $msg);
-  delete_notes($noteDAO, $msg);
-  $notes = find_all_notes($noteDAO, $userid, $err);
+  $userid = $auth_bo->get_user()['id'];
+
+  $note_controller->add_new_note($userid, $msg, $err);
+  $note_controller->update_note($msg, $err);
+  $note_controller->delete_note($msg);
+  $note_controller->delete_notes($msg);
+
+  $notes = $note_controller->find_all_notes($userid, $err);
 
 } else { // user not logged in
   Utils::redirect('./login.php');

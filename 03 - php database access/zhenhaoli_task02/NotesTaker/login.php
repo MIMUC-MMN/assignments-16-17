@@ -1,41 +1,27 @@
 <?php
 
 require_once './dao/UserDAO.php';
-require_once './Utils.php';
+require_once './bo/AuthBO.php';
+require_once './utils/Utils.php';
 
 Utils::start_session_onlyif_no_session();
+$auth_bo = AuthBO::Instance(new UserDAO());
 
 if(isset($_SESSION['user_registered_msg'])) {
   $msg =  $_SESSION['user_registered_msg'];
   unset($_SESSION['user_registered_msg']);
 }
 
-if(isset( $_SESSION['logged_out_msg'])){
-  $msg =  $_SESSION['logged_out_msg'];
+if(isset($_SESSION['logged_out_msg'])){
+  $msg = $_SESSION['logged_out_msg'];
   unset($_SESSION['logged_out_msg']);
 }
-if(isset($_POST['username'], $_POST['password'])){
 
+if(isset($_POST['username'], $_POST['password'])){
   if (Utils::empty_some($_POST['username'], $_POST['password'])) {
     $err = 'Please enter all fields!!';
   } else {
-    $userDAO = new UserDAO();
-    $name = $userDAO->sanitize_input($_POST['username']);
-    $password = $_POST['password'];
-    $user = $userDAO->find_user_by_name($name);
-    if(!isset($user)) {
-      $err = 'Username does not exist, please try again or register!';
-    } else if(is_array($user)){
-      if(password_verify($password, $user['password'])){
-        $msg = 'Successfully logged in!';
-        $_SESSION['user'] = $user;
-        Utils::redirect('./index.php');
-      } else {
-        $err = 'Wrong password, please try again!';
-      }
-    } else {
-      $err = $user;
-    }
+    $auth_bo->login($msg, $err);
   }
 }
 
@@ -79,7 +65,6 @@ if(isset($_POST['username'], $_POST['password'])){
 
     <button type="submit" class="waves-effect btn pink" style="width: 100%">Log in</button>
 
-
     <div class="row" style="margin-top: 10px">
       <div class="col s3 offset-s5">
         <a href="register.php">Register</a>
@@ -88,7 +73,6 @@ if(isset($_POST['username'], $_POST['password'])){
 
   </form>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>

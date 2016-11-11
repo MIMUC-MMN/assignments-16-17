@@ -46,7 +46,7 @@ VALUES (NULL, '$title', '$text', '$userid');";
       $sql = "
 UPDATE `note` 
 SET `title` = '$title', `text` = '$text' 
-WHERE `note`.`id` = $id;";
+WHERE `note`.`id` = '$id';";
 
       if(!$this->_database->query($sql)) {
         return $this->_database->error;
@@ -58,24 +58,17 @@ WHERE `note`.`id` = $id;";
     return $this->_database->error;
   }
 
-
-  /**
-   * find a user record by the username
-   * @param $name String name of the user
-   * @return mixed message to inform about the result of the db operation or the result
-   */
-  function find_user_by_name($name){
+  function delete_note_by_id($id){
     if($this->_database){
       $sql = "
-SELECT *
-FROM `notetaker`.`user` u
-WHERE u.`username` = '$name';";
+DELETE FROM `note` 
+WHERE `note`.`id` = '$id';";
 
-      if($users = $this->_database->query($sql)) {
-        return $users->fetch_assoc();
+      if(!$this->_database->query($sql)) {
+        return $this->_database->error;
       }
       else {
-        return $this->_database->error;
+        return "Successfully deleted note!";
       }
     }
     return $this->_database->error;

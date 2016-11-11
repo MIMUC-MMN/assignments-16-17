@@ -52,6 +52,12 @@ $(document).ready(function(){
         $("#newcontent").val(content);
     });
 
+
+    $(".delete").click(function () {
+        $("#deletenote").val($(this).attr('id'));
+        $("#delete-note").submit();
+    });
+
     $("#updateNote").click(function () {
         $('#modal1').modal('close');
     });

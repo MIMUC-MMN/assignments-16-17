@@ -46,12 +46,23 @@ function find_all_notes($noteDAO, $userid, &$err) {
   return $notes;
 }
 
+function delete_note($noteDAO, &$msg){
+  if (isset($_POST['noteid'], $_POST['delete_note'])) {
+    var_dump($_POST['noteid']);
+    $noteid = substr($noteDAO->sanitize_input($_POST['noteid']), 4); //substr at 5 since we need the id after "del_"
+
+    $msg = $noteDAO->delete_note_by_id($noteid);
+  }
+
+}
+
 if(isset($_SESSION['user'])) { //user is logged in
   $userid = $_SESSION['user']['id'];
   $noteDAO = new NoteDAO();
 
   add_new_note($noteDAO, $userid, $msg, $err);
   update_note($noteDAO, $msg, $err);
+  delete_note($noteDAO, $msg);
   $notes = find_all_notes($noteDAO, $userid, $err);
 
 } else { // user not logged in
@@ -132,9 +143,13 @@ if(isset($_SESSION['user'])) { //user is logged in
           <div class="card-content black-text">
 
             <span class="card-title">
+
               <?=$note['title'];?>
-              <span class="delete pink" id="del_<?=$note['id'];?>"> <i class="material-icons right">delete</i></span>
+
+              <span class="delete pink" id="del_<?=$note['id'];?>"><i class="material-icons right">delete</i></span>
+
               <span class="edit pink" id="edit_<?=$note['id'];?>"> <i class="material-icons right">mode_edit</i></span>
+
             </span>
 
             <p><?=$note['text'];?></p>
@@ -171,6 +186,11 @@ if(isset($_SESSION['user'])) { //user is logged in
     </div>
   </form>
 </div>
+
+<form id="delete-note" method="post">
+  <input type="hidden" name="noteid" id="deletenote">
+  <input type="hidden" name="delete_note">
+</form>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>

@@ -5,24 +5,40 @@ require_once './Utils.php';
 
 Utils::start_session_onlyif_no_session();
 
-if(isset($_SESSION['user'])) { //user is logged in
-  $userid = $_SESSION['user']['id'];
-  $noteDAO = new NoteDAO();
-  if (isset($_POST['title'], $_POST['content'])) {
+
+$msg = '';
+$err = '';
+function add_new_note($noteDAO, $userid) {
+  if (isset($_POST['title'], $_POST['content'])&&!empty($_POST['title'])) {
     $title = $noteDAO->sanitize_input($_POST['title']);
     $content = $noteDAO->sanitize_input($_POST['content']);
 
     $msg = $noteDAO->add_note($title, $content, $userid);
+  } else {
+    $err = 'Save failed, please enter a title!';
   }
-  $notes = array_filter($noteDAO->find_all_notes_by_userid($userid), function ($note){
+  return '';
+}
+
+function find_all_notes($noteDAO, $userid) {
+  $notes = array_filter($noteDAO->find_all_notes_by_userid($userid), function ($note) {
     return !is_null($note);
   });
-
   if (!is_array($notes)) {
     $err = 'Getting notes failed, please try again!';
     $notes = [];
   }
-} else {
+  return $notes;
+}
+
+if(isset($_SESSION['user'])) { //user is logged in
+  $userid = $_SESSION['user']['id'];
+  $noteDAO = new NoteDAO();
+
+  add_new_note($noteDAO, $userid);
+  $notes = find_all_notes($noteDAO, $userid);
+
+} else { // user not logged in
   Utils::redirect('./login.php');
 }
 ?>
@@ -55,6 +71,7 @@ if(isset($_SESSION['user'])) { //user is logged in
       <i id="addNewNote" class="medium material-icons right">add_circle</i>
     </h3>
     <h4 class="green-text center-align"><?=isset($msg)? $msg : ''?></h4>
+    <h4 class="red-text center-align"><?=isset($err)? $err : ''?></h4>
     <div class="divider"></div>
   </div>
 </div>

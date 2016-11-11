@@ -14,7 +14,6 @@ if(isset( $_SESSION['logged_out_msg'])){
   $msg =  $_SESSION['logged_out_msg'];
   unset($_SESSION['logged_out_msg']);
 }
-
 if(isset($_POST['username'], $_POST['password'])){
 
   if (Utils::empty_some($_POST['username'], $_POST['password'])) {

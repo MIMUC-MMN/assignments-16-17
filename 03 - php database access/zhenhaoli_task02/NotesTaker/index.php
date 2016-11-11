@@ -48,12 +48,21 @@ function find_all_notes($noteDAO, $userid, &$err) {
 
 function delete_note($noteDAO, &$msg){
   if (isset($_POST['noteid'], $_POST['delete_note'])) {
-    var_dump($_POST['noteid']);
-    $noteid = substr($noteDAO->sanitize_input($_POST['noteid']), 4); //substr at 5 since we need the id after "del_"
+
+    $noteid = substr($noteDAO->sanitize_input($_POST['noteid']), 4); //substr at 4 since we need the id after "del_"
 
     $msg = $noteDAO->delete_note_by_id($noteid);
   }
+}
 
+function delete_notes($noteDAO, &$msg){
+  if (isset($_POST['noteids'], $_POST['delete_notes'])) {
+    $selected_notes = json_decode($_POST['noteids'], true);
+    foreach ($selected_notes as $note){
+      $noteid = substr($noteDAO->sanitize_input($note), 4); //substr at 4 since we need the id after "sel_"
+      $msg = $noteDAO->delete_note_by_id($noteid);
+    }
+  }
 }
 
 if(isset($_SESSION['user'])) { //user is logged in
@@ -63,6 +72,7 @@ if(isset($_SESSION['user'])) { //user is logged in
   add_new_note($noteDAO, $userid, $msg, $err);
   update_note($noteDAO, $msg, $err);
   delete_note($noteDAO, $msg);
+  delete_notes($noteDAO, $msg);
   $notes = find_all_notes($noteDAO, $userid, $err);
 
 } else { // user not logged in
@@ -125,22 +135,20 @@ if(isset($_SESSION['user'])) { //user is logged in
   </form>
 </div>
 
+<div class="row">
 
-<form action="#">
-  <div class="row">
-
-    <div class="col s12">
-      <a class="waves-effect btn pink" style="width:100%" id="saveNote">Delete selected notes</a>
-    </div>
+  <div class="col s12">
+    <button class="waves-effect btn pink" style="width:100%" id="delete-selected">Delete selected notes</button>
   </div>
+</div>
 
-  <div class="row">
+<div class="row">
 
-    <?php foreach ($notes as $note): ?>
-      <input type="hidden" name="<?=$note['id']?>">
-      <div class="col s12 m4">
-        <div class="card white darken-5 z-depth-3">
-          <div class="card-content black-text">
+  <?php foreach ($notes as $note): ?>
+    <input type="hidden" name="<?=$note['id']?>">
+    <div class="col s12 m4">
+      <div class="card white darken-5 z-depth-3" id="sel_<?=$note['id'];?>">
+        <div class="card-content black-text">
 
             <span class="card-title">
 
@@ -152,14 +160,14 @@ if(isset($_SESSION['user'])) { //user is logged in
 
             </span>
 
-            <p><?=$note['text'];?></p>
-          </div>
+          <p><?=$note['text'];?></p>
         </div>
       </div>
-    <?php endforeach; ?>
+    </div>
+  <?php endforeach; ?>
 
-  </div>
-</form>
+</div>
+
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
@@ -190,6 +198,11 @@ if(isset($_SESSION['user'])) { //user is logged in
 <form id="delete-note" method="post">
   <input type="hidden" name="noteid" id="deletenote">
   <input type="hidden" name="delete_note">
+</form>
+
+<form id="delete-selected-notes" method="post">
+  <input type="hidden" name="noteids" id="deletenotes">
+  <input type="hidden" name="delete_notes">
 </form>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

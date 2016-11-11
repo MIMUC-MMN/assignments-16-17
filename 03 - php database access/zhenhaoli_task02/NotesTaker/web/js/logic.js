@@ -35,10 +35,21 @@ $(document).ready(function(){
     });
 
     $(".edit").click(function () {
-        console.log($(this).attr('id'));
+        var title = $(this)
+            .parent()
+            .clone()
+            .children()
+            .remove()
+            .end()
+            .text().replace(/\s/g,'');
+
+        var content = $(this).parent().next().text();
+
+
         $('#modal1').modal('open');
         $("#editnote").val($(this).attr('id'));
-
+        $("#newtitle").val(title);
+        $("#newcontent").val(content);
     });
 
     $("#updateNote").click(function () {

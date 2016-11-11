@@ -23,7 +23,7 @@ function update_note($noteDAO, &$msg, &$err){
   if (isset($_POST['noteid'], $_POST['newtitle'], $_POST['newcontent'])) {
     if (!empty($_POST['newtitle'])) {
 
-      $noteid = substr($noteDAO->sanitize_input($_POST['noteid']), 5); //returns "edit_x" where x is the id
+      $noteid = substr($noteDAO->sanitize_input($_POST['noteid']), 5); //substr at 5 since we need the id after "edit_"
 
       $title = $noteDAO->sanitize_input($_POST['newtitle']);
       $content = $noteDAO->sanitize_input($_POST['newcontent']);
@@ -131,11 +131,11 @@ if(isset($_SESSION['user'])) { //user is logged in
         <div class="card white darken-5 z-depth-3">
           <div class="card-content black-text">
 
-        <span class="card-title">
-          <?=$note['title'];?>
-          <a class="delete" id="del_<?=$note['id'];?>"> <i class="material-icons right">delete</i></a>
-          <a class="edit" id="edit_<?=$note['id'];?>"> <i class="material-icons right">mode_edit</i></a>
-        </span>
+            <span class="card-title">
+              <?=$note['title'];?>
+              <span class="delete pink" id="del_<?=$note['id'];?>"> <i class="material-icons right">delete</i></span>
+              <span class="edit pink" id="edit_<?=$note['id'];?>"> <i class="material-icons right">mode_edit</i></span>
+            </span>
 
             <p><?=$note['text'];?></p>
           </div>
@@ -154,15 +154,15 @@ if(isset($_SESSION['user'])) { //user is logged in
 
       <div class="row">
         <div class="input-field col s12">
-          <input id="name" name="newtitle" type="text" class="validate">
-          <label for="name">Title of your note</label>
+          <input id="newtitle" name="newtitle" type="text" class="validate" placeholder="Enter title">
+          <label for="newtitle">Title of your note</label>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <textarea id="textarea1" name="newcontent" class="materialize-textarea"></textarea>
-          <label for="textarea1">Content of your note</label>
+          <textarea id="newcontent" name="newcontent" class="materialize-textarea" placeholder="Enter content"></textarea>
+          <label for="newcontent">Content of your note</label>
         </div>
       </div>
       <input type="hidden" name="noteid" id="editnote">

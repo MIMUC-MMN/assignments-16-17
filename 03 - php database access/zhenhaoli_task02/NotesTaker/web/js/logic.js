@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $('.modal').modal();
+
     $("#newNoteForm").hide();
 
     $("#addNewNote").click(function(){
@@ -30,5 +32,18 @@ $(document).ready(function(){
             $(this).children().first().removeClass('white-text');
             $(this).children().first().addClass('black-text');
         }
-    })
+    });
+
+    $(".edit").click(function () {
+        console.log($(this).attr('id'));
+        $('#modal1').modal('open');
+        $("#editnote").val($(this).attr('id'));
+
+    });
+
+    $("#updateNote").click(function () {
+        $('#modal1').modal('close');
+    });
+
+
 });

@@ -50,11 +50,11 @@ abstract class DBConnection
 
   /**
    * useful to sanitize data before trying to insert it into the database.
-   * @param $string String to be escaped from malicious SQL statements
+   * @param $string String to be escaped from malicious SQL statements and script tags
    * @return $string sanitized string
    */
   public function sanitize_input($string){
-    return $this->_database->real_escape_string($string);
+    return $this->_database->real_escape_string(htmlspecialchars($string));
   }
 
 }

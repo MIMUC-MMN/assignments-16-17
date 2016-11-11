@@ -41,6 +41,23 @@ VALUES (NULL, '$title', '$text', '$userid');";
     return $this->_database->error;
   }
 
+  function edit_note_by_id($id, $title, $text){
+    if($this->_database){
+      $sql = "
+UPDATE `note` 
+SET `title` = '$title', `text` = '$text' 
+WHERE `note`.`id` = $id;";
+
+      if(!$this->_database->query($sql)) {
+        return $this->_database->error;
+      }
+      else {
+        return "Successfully updated note!";
+      }
+    }
+    return $this->_database->error;
+  }
+
 
   /**
    * find a user record by the username

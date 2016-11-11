@@ -5,22 +5,37 @@ require_once './Utils.php';
 
 Utils::start_session_onlyif_no_session();
 
+function add_new_note($noteDAO, $userid, &$msg, &$err) {
+  if (isset($_POST['title'], $_POST['content'])) {
+    if (!empty($_POST['title'])) {
 
-$msg = '';
-$err = '';
-function add_new_note($noteDAO, $userid) {
-  if (isset($_POST['title'], $_POST['content'])&&!empty($_POST['title'])) {
-    $title = $noteDAO->sanitize_input($_POST['title']);
-    $content = $noteDAO->sanitize_input($_POST['content']);
+      $title = $noteDAO->sanitize_input($_POST['title']);
+      $content = $noteDAO->sanitize_input($_POST['content']);
 
-    $msg = $noteDAO->add_note($title, $content, $userid);
-  } else {
-    $err = 'Save failed, please enter a title!';
+      $msg = $noteDAO->add_note($title, $content, $userid);
+    } else {
+      $err = 'Save failed, please enter a title!';
+    }
   }
-  return '';
 }
 
-function find_all_notes($noteDAO, $userid) {
+function update_note($noteDAO, &$msg, &$err){
+  if (isset($_POST['noteid'], $_POST['newtitle'], $_POST['newcontent'])) {
+    if (!empty($_POST['newtitle'])) {
+
+      $noteid = substr($noteDAO->sanitize_input($_POST['noteid']), 5); //returns "edit_x" where x is the id
+
+      $title = $noteDAO->sanitize_input($_POST['newtitle']);
+      $content = $noteDAO->sanitize_input($_POST['newcontent']);
+
+      $msg = $noteDAO->edit_note_by_id($noteid, $title, $content);
+    } else {
+      $err = 'Update failed, please enter a title!';
+    }
+  }
+}
+
+function find_all_notes($noteDAO, $userid, &$err) {
   $notes = array_filter($noteDAO->find_all_notes_by_userid($userid), function ($note) {
     return !is_null($note);
   });
@@ -35,8 +50,9 @@ if(isset($_SESSION['user'])) { //user is logged in
   $userid = $_SESSION['user']['id'];
   $noteDAO = new NoteDAO();
 
-  add_new_note($noteDAO, $userid);
-  $notes = find_all_notes($noteDAO, $userid);
+  add_new_note($noteDAO, $userid, $msg, $err);
+  update_note($noteDAO, $msg, $err);
+  $notes = find_all_notes($noteDAO, $userid, $err);
 
 } else { // user not logged in
   Utils::redirect('./login.php');
@@ -79,7 +95,6 @@ if(isset($_SESSION['user'])) { //user is logged in
 
 <div class="row" id="newNoteForm">
   <form method="post" class="col s12 m6 offset-m3">
-
     <div class="row">
       <div class="input-field col s12">
         <input id="name" name="title" type="text" class="validate">
@@ -111,14 +126,15 @@ if(isset($_SESSION['user'])) { //user is logged in
   <div class="row">
 
     <?php foreach ($notes as $note): ?>
+      <input type="hidden" name="<?=$note['id']?>">
       <div class="col s12 m4">
         <div class="card white darken-5 z-depth-3">
           <div class="card-content black-text">
 
         <span class="card-title">
           <?=$note['title'];?>
-          <i class="material-icons right">delete</i>
-          <i class="material-icons right">mode_edit</i>
+          <a class="delete" id="del_<?=$note['id'];?>"> <i class="material-icons right">delete</i></a>
+          <a class="edit" id="edit_<?=$note['id'];?>"> <i class="material-icons right">mode_edit</i></a>
         </span>
 
             <p><?=$note['text'];?></p>
@@ -129,6 +145,32 @@ if(isset($_SESSION['user'])) { //user is logged in
 
   </div>
 </form>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <form method="post">
+    <div class="modal-content">
+      <h4>Edit Note</h4>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="name" name="newtitle" type="text" class="validate">
+          <label for="name">Title of your note</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" name="newcontent" class="materialize-textarea"></textarea>
+          <label for="textarea1">Content of your note</label>
+        </div>
+      </div>
+      <input type="hidden" name="noteid" id="editnote">
+      <button type="submit" class="waves-effect btn pink" id="updateNote">Update</button>
+      <a href="#!" class="modal-action modal-close waves-effect btn right pink">Cancel</a>
+    </div>
+  </form>
+</div>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>

@@ -29,7 +29,7 @@ class UserDAO extends DBConnection
 
     if($this->_database){
       $sql = "
-INSERT INTO `notetaker`.`user` 
+INSERT INTO `user` 
 (`id`, `username`, `password`) 
 VALUES (NULL, '$username', '$hashed');";
 
@@ -56,7 +56,7 @@ VALUES (NULL, '$username', '$hashed');";
     if($this->_database){
       $sql = "
 SELECT *
-FROM `notetaker`.`user` u
+FROM `user` u
 WHERE u.`username` = '$name';";
 
       if($users = $this->_database->query($sql)) {

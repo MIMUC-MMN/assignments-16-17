@@ -27,7 +27,7 @@ class NoteDAO extends DBConnection
 
     if($this->_database){
       $sql = "
-INSERT INTO `notetaker`.`note` 
+INSERT INTO `note` 
 (`id`, `title`, `text`, `userid`) 
 VALUES (NULL, '$title', '$text', '$userid');";
 
@@ -79,7 +79,7 @@ WHERE `note`.`id` = '$id';";
     if ($this->_database) {
       $sql = "
 SELECT *
-FROM `notetaker`.`note` n
+FROM `note` n
 WHERE n.`userid` = '$userid';";
 
       if ($notes = $this->_database->query($sql)) {

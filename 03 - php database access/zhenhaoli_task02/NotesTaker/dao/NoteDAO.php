@@ -1,6 +1,6 @@
 <?php
 
-require_once './DBConnection.php';
+require_once 'DBConnection.php';
 require_once './Utils.php';
 
 class NoteDAO extends DBConnection

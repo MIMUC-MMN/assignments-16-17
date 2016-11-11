@@ -1,6 +1,6 @@
 <?php
 
-require_once './UserDAO.php';
+require_once './dao/UserDAO.php';
 require_once './Utils.php';
 
 Utils::start_session_onlyif_no_session();

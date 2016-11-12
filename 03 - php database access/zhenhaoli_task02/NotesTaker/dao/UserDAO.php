@@ -25,13 +25,11 @@ class UserDAO extends DBConnection
    */
   function add_user($username,$password){
 
-    $hashed = password_hash($password,PASSWORD_DEFAULT);
-
     if($this->_database){
       $sql = "
 INSERT INTO `user` 
 (`id`, `username`, `password`) 
-VALUES (NULL, '$username', '$hashed');";
+VALUES (NULL, '$username', '$password');";
 
       if(!$this->_database->query($sql)) {
         $is_username_taken = Utils::contains('Duplicate', $this->_database->error);

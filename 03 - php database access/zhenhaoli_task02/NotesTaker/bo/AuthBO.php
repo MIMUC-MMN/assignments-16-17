@@ -40,7 +40,9 @@ class AuthBO
       $username = $this->userDAO->sanitize_input($username);
       $password = $this->userDAO->sanitize_input($password);
 
-      $msg = $this->userDAO->add_user($username, $password);
+      $hashed = password_hash($password,PASSWORD_DEFAULT);
+
+      $msg = $this->userDAO->add_user($username, $hashed);
 
       if(Utils::contains('Successfully', $msg)){
         $_SESSION['user_registered_msg'] = $msg;

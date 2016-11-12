@@ -33,21 +33,50 @@ class AuthBO
     return null;
   }
 
-  function login(&$msg, &$err){
-    $name = $this->userDAO->sanitize_input($_POST['username']);
-    $password = $_POST['password'];
+  function register($username, $password, $rpassword, &$msg){
+
+    if ($password === $rpassword) {
+
+      $username = $this->userDAO->sanitize_input($username);
+      $password = $this->userDAO->sanitize_input($password);
+
+      $msg = $this->userDAO->add_user($username, $password);
+
+      if(Utils::contains('Successfully', $msg)){
+        $_SESSION['user_registered_msg'] = $msg;
+        Utils::redirect('./login.php');
+      }
+
+    }
+
+    else {
+      $msg = 'Password do not match, please try again!';
+    }
+  }
+
+  function login($name, $password, &$msg, &$err){
+
+    $name = $this->userDAO->sanitize_input($name);
     $user = $this->userDAO->find_user_by_name($name);
+
     if(!isset($user)) {
       $err = 'Username does not exist, please try again or register!';
-    } else if(is_array($user)){
+    }
+
+    else if(is_array($user)){
+
       if(password_verify($password, $user['password'])){
         $msg = 'Successfully logged in!';
         $_SESSION['user'] = $user;
         Utils::redirect('./index.php');
-      } else {
+      }
+
+      else {
         $err = 'Wrong password, please try again!';
       }
-    } else {
+    }
+
+    else {
       $err = $user;
     }
   }

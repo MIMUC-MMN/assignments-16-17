@@ -1,40 +1,12 @@
 <?php
 
-/*
-   1. get submitted vars
-   2. insert into db
-   3. if success redirect to login and message successful register
-   4. if fail then register again
-*/
+require_once './controller/AuthController.php';
 
-require_once './dao/UserDAO.php';
-require_once './utils/Utils.php';
+$auth_controller = AuthController::Instance();
+$auth_controller->register($msg);
 
-Utils::start_session_onlyif_no_session();
-
-if(isset($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
-  if (Utils::empty_some($_POST['username'], $_POST['password'], $_POST['rpassword'])) {
-    $msg = 'Some fields were empty, please make sure to fill all fields!';
-  } else if ($_POST['password'] === $_POST['rpassword']) {
-
-    //db operations
-    $userDAO = new UserDAO();
-
-    $username = $userDAO->sanitize_input($_POST['username']);
-    $password = $userDAO->sanitize_input($_POST['password']);
-
-    $msg = $userDAO->add_user($username, $password);
-    if(Utils::contains('Successfully', $msg)){
-      $_SESSION['user_registered_msg'] = $msg;
-      Utils::redirect('./login.php');
-    }
-
-  } else {
-    $msg = 'Password do not match, please try again!';
-  }
-
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

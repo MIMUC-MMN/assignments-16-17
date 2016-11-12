@@ -1,29 +1,10 @@
 <?php
 
-require_once './dao/UserDAO.php';
-require_once './bo/AuthBO.php';
-require_once './utils/Utils.php';
+require_once './controller/AuthController.php';
 
-Utils::start_session_onlyif_no_session();
-$auth_bo = AuthBO::Instance(new UserDAO());
-
-if(isset($_SESSION['user_registered_msg'])) {
-  $msg =  $_SESSION['user_registered_msg'];
-  unset($_SESSION['user_registered_msg']);
-}
-
-if(isset($_SESSION['logged_out_msg'])){
-  $msg = $_SESSION['logged_out_msg'];
-  unset($_SESSION['logged_out_msg']);
-}
-
-if(isset($_POST['username'], $_POST['password'])){
-  if (Utils::empty_some($_POST['username'], $_POST['password'])) {
-    $err = 'Please enter all fields!!';
-  } else {
-    $auth_bo->login($msg, $err);
-  }
-}
+$auth_controller = AuthController::Instance();
+$auth_controller->login($msg, $err);
+$msg = $auth_controller->get_auth_status_msg();
 
 ?>
 

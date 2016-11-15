@@ -1,0 +1,39 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font: 12pt 'Helvetica', 'Arial', sans-serif;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font-size: 30px;
+}
+
+#top {
+  display: block;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  z-index: 1;
+  bottom: 1em;
+}
+
+#bottom {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+#colorDisplay {
+  margin:auto;
+  font-size: 50px;
+}
+

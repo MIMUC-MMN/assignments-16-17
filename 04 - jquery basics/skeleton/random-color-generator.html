@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Color Generator</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script>
+
+    /**
+     * makes a random color based on an integer between 0 and (255)^3
+     * snatched from http://stackoverflow.com/a/39078626/1447479
+     * @returns {string} color string like "#ab12ce"
+     */
+    function getRandomColor() {
+      return "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
+    }
+
+    // we wait for the dom-ready event to make sure
+    // the entire document has been parsed and is now accessible
+    $(document).ready(function() {
+
+      // this is the bottom container, which actually spans the
+      // entire screen.
+      const bottom = $('#bottom');
+
+      // if this button is clicked,
+      // a) a random color is generated
+      // b) the color is applied to the background-color CSS property
+      //    of the bottom element.
+      const button = $('#generateButton');
+
+      // this div shows the hex-code of the color
+      const colorDisplay = bottom.find('#colorDisplay');
+
+      // TODO
+      // your code goes here!
+    })
+
+  </script>
+  <!--
+    we put the style in here directly,
+    but there's also a file called random-color-generator.css
+    you can use to avoid the clutter in here.
+  -->
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font: 12pt 'Helvetica', 'Arial', sans-serif;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+      font-size: 30px;
+    }
+
+    #top {
+      display: block;
+      width: 100%;
+      position: absolute;
+      text-align: center;
+      z-index: 1;
+      bottom: 1em;
+    }
+
+    #bottom {
+      flex: 1;
+      width: 100%;
+      position: relative;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+
+    #colorDisplay {
+      margin:auto;
+      font-size: 50px;
+    }
+  </style>
+</head>
+<body>
+<!--
+    You don't need to change any of the code below
+-->
+<div id="top">
+  <button id="generateButton">Generate</button>
+</div>
+<div id="bottom">
+  <div id="colorDisplay"></div>
+</div>
+</body>
+</html>

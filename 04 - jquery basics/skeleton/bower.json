@@ -1,0 +1,22 @@
+{
+  "name": "mmn-assignment-04",
+  "authors": [
+    "Tobias Seitz <tobi@tobitobi.de>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "zxcvbn": "^4.4.1"
+  }
+}

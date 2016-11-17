@@ -1,0 +1,22 @@
+{
+  "name": "zhenhaoli_task02",
+  "homepage": "https://github.com/MIMUC-MMN/assignments-16-17",
+  "authors": [
+    "zhenhaoli <zhenhao.li@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.4",
+    "zxcvbn": "^4.4.1",
+    "bootswatch-dist": "flatly"
+  }
+}

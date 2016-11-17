@@ -4,6 +4,7 @@ require_once './dao/UserDAO.php';
 require_once './bo/AuthBO.php';
 require_once './utils/Utils.php';
 
+/** controller to check submitted paramester in login/logout/register forms */
 class AuthController
 {
   private $auth_bo = null;

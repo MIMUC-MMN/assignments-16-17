@@ -3,6 +3,7 @@
 require_once 'DBConnection.php';
 require_once './utils/Utils.php';
 
+/** database access object for users (used for auth) */
 class UserDAO extends DBConnection
 {
 

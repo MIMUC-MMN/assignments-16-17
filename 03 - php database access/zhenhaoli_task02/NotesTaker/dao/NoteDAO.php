@@ -3,6 +3,8 @@
 require_once 'DBConnection.php';
 require_once './utils/Utils.php';
 
+
+/** database access object for notes */
 class NoteDAO extends DBConnection
 {
 

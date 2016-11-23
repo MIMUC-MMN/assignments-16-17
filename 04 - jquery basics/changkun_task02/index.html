@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Meter</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="bower_components/zxcvbn/dist/zxcvbn.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<header>
+  Password Strength
+</header>
+<div id="app">
+  <input id="password" type="password"/>
+  <div class="strength">
+    <div></div><div></div><div></div>
+    <div></div><div></div>
+  </div>
+  <div class="detection">
+    <div class="issue">Input Your Password!</div>
+    <div class="time"></div>
+    <div class="suggestions"><ul></ul></div>
+  </div>
+  <div class="json"><pre></pre></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

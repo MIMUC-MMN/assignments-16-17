@@ -1,0 +1,21 @@
+{
+  "name": "passowrd-metter",
+  "authors": [
+    "Changkun Ou <hi@changkun.us>"
+  ],
+  "description": "task02",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zxcvbn": "^4.4.1",
+    "jquery": "^3.1.1"
+  }
+}

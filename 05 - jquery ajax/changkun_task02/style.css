@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #EEEEEE;
+}
+header {
+  font-size: 20px;
+  color: white;
+  background-color: #2993FB;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
+}
+
+#source {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 300px;
+  margin-top: 65px;
+  text-align: center;
+}
+#source img {
+  margin: 0 auto;
+  width: 70%;
+  padding: 5px;
+}
+#source img:hover {
+  border-style: solid;
+  border-color: #DDDDDD;
+}
+
+#content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 300px;
+  right: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 65px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#none {
+  margin: 200px auto 0;
+  font-size: 30px;
+  color: #AAAAAA;
+  user-select: none;
+}
+
+.card {
+  text-align: left;
+  margin: 20px;
+  border: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+}
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.title {
+  padding-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.author {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.image  {
+  text-align: center;
+}
+.image img {
+  width: 100%;
+}
+.description {
+  margin: 20px;
+}
+.link {
+  margin: 20px;
+  padding-bottom: 20px;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Extended Spotify Search",
+  "homepage": "https://changkun.us",
+  "authors": [
+    "Changkun Ou <hi@changkun.us>"
+  ],
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "jquery-modal": "^0.8.0"
+  }
+}

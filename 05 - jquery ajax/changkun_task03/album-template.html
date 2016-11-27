@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Album</title>
+</head>
+
+<style type="text/css">
+  body {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  }
+  .modal {
+    background-color: #F9F9F9;
+    width: 600px;
+    padding-bottom: 5px;
+
+    /*text-align: left;*/
+    margin: 20px;
+    border: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    max-width: 1000px;
+  }
+
+  .info {
+    width: 90%;
+    height: 200px;
+    padding: 10px;
+  }
+  .album-img {
+    width: 50%;
+    height: 200px;
+    float: left;
+  }
+  .album-txt {
+    margin-left: 15%;
+    height: 200px;
+  }
+  .popularity {
+    margin-top: 40px;
+  }
+
+  .tracks {
+    padding-top: 20px;
+  }
+  .album-txt {
+    top: 0;
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .album-img img {
+    width: 200px;
+  }
+  .track {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    border: 0px;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: #EEEEEE;
+    transition-duration: 1s;
+  }
+  .track:hover {
+    box-shadow: 0px 0px 50px 0 rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0px 0px 50px 0 rgba(0,0,0,0.2);
+    transition: 1s;
+    -webkit-transition: 1s;
+  }
+  .track .track-name {
+    display: inline;
+    padding: 10px;
+    padding-left: 15px;
+    float: left;
+  }
+  .track .audio {
+    display: inline;
+  }
+</style>
+
+<body>
+<div class="modal">
+
+  <div class="info">
+    <div class="album-img">
+      <img src="https://i.scdn.co/image/34beaad5faf39b2deaec8da702b37ba0805bb35c">
+      <!-- album.images[0].url -->
+    </div>
+    <div class="album-txt">
+      <div class="album-name">Beauty Behind The Madness</div> 
+      <!-- album.name -->
+      <div class="popularity">Popularity: 90</div>
+    </div>
+  </div>
+
+  <div class="tracks">
+    <div class="track">
+      <div class="track-name">Real Life</div>
+      <!-- album.tracks.items[i].name -->
+      <div class="audio" >
+        <audio controls src="https://p.scdn.co/mp3-preview/d939e303cc7904964a679392564b324c2e8b8a64"></audio>
+      </div>
+      <!-- album.tracks.items[i].preview_url -->
+    </div>
+    <div class="track">
+      <div class="track-name">Real Life</div>
+      <!-- album.tracks.items[i].name -->
+      <div class="audio" >
+        <audio controls src="https://p.scdn.co/mp3-preview/d939e303cc7904964a679392564b324c2e8b8a64"></audio>
+      </div>
+      <!-- album.tracks.items[i].preview_url -->
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

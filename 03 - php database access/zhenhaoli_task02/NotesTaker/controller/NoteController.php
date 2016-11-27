@@ -2,6 +2,7 @@
 
 require_once './dao/NoteDAO.php';
 
+/** controller to check submitted parameter in index.php for the notes */
 final class NoteController
 {
 

@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+}
+header {
+  font-size: 20px;
+  color: white;
+  background-color: #2993FB;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
+}
+
+#app {
+  width: 100%;
+}
+#search {
+  margin-top: 100px;
+}
+#input {
+  height: 50px;
+  font-size: 15px;
+  border: 1px solid #2993FB;
+  border-radius: 5px;
+  color: #2993FB;
+  outline: none;
+  margin: 0 0 2em 0;
+  width: 300px;
+  transition: width 0.3s ease-in-out;
+  padding: 10px;
+}
+#input[type=text]:focus, #input[type=search]:focus {
+  width: 80%;
+}
+
+#search {
+  width: 100%;
+  text-align: center;
+}
+#results {
+  display: flex;
+  flex-wrap: wrap;
+}
+.album {
+  flex: 1;
+  max-height: 150px;
+  min-width: 100px;
+  max-width: 150px;
+}
+.album img {
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.album:hover img {
+  transform:scale(2.25);
+}
+
+.modal {
+  background-color: #F9F9F9;
+  width: 600px;
+  padding-bottom: 5px;
+
+  /*text-align: left;*/
+  margin: 20px;
+  border: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  max-width: 1000px;
+}
+
+.info {
+  width: 90%;
+  height: 200px;
+  padding: 10px;
+}
+.album-img {
+  width: 50%;
+  height: 200px;
+  float: left;
+}
+.album-txt {
+  margin-left: 15%;
+  height: 200px;
+}
+.popularity {
+  margin-top: 40px;
+}
+
+.tracks {
+  padding-top: 20px;
+}
+.album-txt {
+  top: 0;
+  margin-top: 0;
+  font-weight: bold;
+  font-size: 20px;
+}
+.album-img img {
+  width: 200px;
+}
+.track {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+  border: 0px;
+  border-style: solid;
+  border-radius: 8px;
+  border-color: #EEEEEE;
+  transition-duration: 1s;
+}
+.track:hover {
+  box-shadow: 0px 0px 50px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 0px 50px 0 rgba(0,0,0,0.2);
+  transition: 1s;
+  -webkit-transition: 1s;
+}
+.track .track-name {
+  display: inline;
+  padding: 10px;
+  padding-left: 15px;
+  float: left;
+}
+.track .audio {
+  display: inline;
+}

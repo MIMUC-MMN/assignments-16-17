@@ -1,8 +1,7 @@
 1. `'lang=""'` should be in `<html>` tag;
 2. `$_POST['submit']` will never be set and should also be check with `isset()`;
 3. form doesn't specify a method, considering security, we should use POST request;
-4. use `<div>` instead of `<label>`;
-5. `<input>` element must set name property to passing their value when form submit.
+4. `<input>` element must set name property to passing their value when form submit.
 
 Here is a correction:
 
@@ -26,12 +25,12 @@ if (isset($_POST['submit'])) {
 ?>
 
 <form method="post">
-    <div>
+    <label>
         Email: <input type="email" name="email">
-    </div>
-    <div>
+    </label>
+    <label>
         Password: <input type="password" name="password">
-    </div>
+    </label>
     <input type="submit" name="submit">
 </form>
 

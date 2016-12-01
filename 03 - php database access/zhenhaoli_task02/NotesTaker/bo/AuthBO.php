@@ -3,6 +3,7 @@
 require_once './dao/UserDAO.php';
 require_once './utils/Utils.php';
 
+/** business logic for authentication*/
 class AuthBO
 {
 

@@ -317,3 +317,6 @@ nbactions.xml
 .idea/misc.xml
 .idea/modules.xml
 .idea/tutorials-16-17.iml
+.gitignore
+bower.json
+random-color-generator.html

@@ -8,8 +8,11 @@
 
 
 header('Content-type: application/json');
-header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Method: *");
+
+// WARNING: Access-Control-Allow-Origin: * is dangerous
+// Do not use this line on public servers.
+header("Access-Control-Allow-Origin: *");
 
 
 error_reporting(E_ERROR);

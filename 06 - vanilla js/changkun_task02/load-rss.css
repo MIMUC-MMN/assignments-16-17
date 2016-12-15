@@ -1,0 +1,119 @@
+body, html {
+    margin:0;
+    padding: 0;
+}
+
+body {
+    font: 12pt Arial, sans-serif;
+    position: relative;
+    background-color: #eee;
+}
+
+header {
+    padding: 24px 0;
+    background-color: dodgerblue;
+    font-size: 30px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    display:flex;
+}
+
+.appName {
+    margin: 0 24px;
+}
+.currentSource {
+    flex: 1;
+}
+
+.playButton {
+    width: 50px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    outline:none;
+    color: black;
+    background-color: white;
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    margin: 0 24px;
+    cursor: pointer;
+}
+.playButton:hover {
+    color: white;
+    background-color: deeppink;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+#container {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    top: 100px;
+}
+
+#sources {
+    width: 30%;
+}
+
+#sources ul {
+    list-style-type:none;
+    padding: 0;
+    width: 100%;
+}
+#sources ul li {
+    width: 100%;
+    margin: 16px 0;
+    cursor: pointer;
+}
+
+#sources ul li img {
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 10px;
+    margin: auto;
+    display: block;
+}
+#sources ul li img:hover,#sources ul li img:focus {
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+#sources ul li img:active, #sources ul li img:focus {
+    background-color: white;
+}
+#content {
+    padding: 100px 1% 0 1%;
+}
+
+#content .article {
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    padding: 24px;
+    margin: 32px 0;
+    background-color: white;
+}
+#content .article:first-child {
+    margin: 0;
+}
+
+#content .article .thumbnail, #content .article img, #content .article div, #content .article p{
+    max-width: 100%;
+    display: block;
+    margin: 1em auto;
+}
+
+#content .article table {
+    width: 100%;
+}
+
+#content .progress {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    font-size: 100px;
+    transform: translate(-50%,-50%);
+}

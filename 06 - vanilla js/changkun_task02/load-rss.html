@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS Ticker</title>
+    <link rel="stylesheet" href="load-rss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var logoPlay = '►';
+            var logoStop = '■';
+
+            var popularFeeds = [
+                'http://feeds.gawker.com/lifehacker/full',
+                'https://www.technologyreview.com/stories.rss',
+                'http://feeds.feedburner.com/Techcrunch/europe',
+                'http://feeds.feedburner.com/HowToGeek',
+                'https://changkun.us/atom.xml'
+            ];
+
+            function getRSS(callback) {
+                var feed = popularFeeds[Math.floor(Math.random()*popularFeeds.length)];
+                var url  = './xml-proxy.php?url='+feed;
+                var ajax = new XMLHttpRequest();
+                ajax.onreadystatechange = function() {
+                    if (ajax.readyState == 4 && ajax.status == 200) {
+                        var response = JSON.parse(ajax.responseText);
+                        callback(response);
+                    }
+                };
+                ajax.open('get', url, true);
+                ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                ajax.send();
+            }
+
+            function isEmpty(obj) {
+                for(var prop in obj)
+                    if(obj.hasOwnProperty(prop))
+                        return false;
+                return true;
+            }
+
+            function render(article) {
+
+                // create title
+                var title = document.createElement('h1');
+                title.innerHTML = article.title;
+
+                // create content
+                var content = document.createElement('div');
+                content.classList.add('thumbnail');
+                if (!isEmpty(article.description)) {
+                    content.innerHTML = article.description;   
+                }
+
+                // create link
+                var link = document.createElement('a');
+                link.innerHTML = 'Continue reading...';
+                link.href = article.link;
+
+                // add to container
+                var container = document.createElement('div');
+                container.appendChild(title);
+                container.appendChild(content);
+                container.appendChild(link);
+                container.classList.add('article');
+
+                document.getElementById('articles').appendChild(container);
+            }
+
+            var playButtons = document.getElementsByClassName('playButton');
+            var intervalID = null;
+            for (var i = 0; i < playButtons.length; i++) {
+                // add update interval refresh
+                playButtons[i].addEventListener('click', function() {
+                    var update = function() {
+                        // add loading
+                        document.getElementById('articles').innerHTML = "";
+                        document.getElementsByClassName('progress')[0].innerHTML = 'Loading...';
+                        // perform rss get request
+                        getRSS(function(response) {
+                            // process response
+                            if (response.code === 500) {
+                                document.getElementsByClassName('currentSource')[0].innerHTML = "";
+                                document.getElementsByClassName('progress')[0].innerHTML = 'Server side error, please wait another source';
+                            } else {
+                                // update header title
+                                document.getElementsByClassName('currentSource')[0].innerHTML = response.channel.description;
+                                // clear progress
+                                document.getElementsByClassName('progress')[0].innerHTML = "";
+                                // render all article
+                                for (var i = 0; i < response.channel.item.length; i++) {
+                                    render(response.channel.item[i]);
+                                }
+                            }
+                        });
+                    };
+                    // update content
+                    if (this.innerHTML == logoPlay) {
+                        intervalID = setInterval(update, 4000);
+                        for (var i = 0; i < playButtons.length; i++) {
+                            playButtons[i].innerHTML = logoStop;
+                        }               
+                    } else {
+                        clearInterval(intervalID)
+                        for (var i = 0; i < playButtons.length; i++) {
+                            playButtons[i].innerHTML = logoPlay;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</head>
+<body>
+<header>
+    <span class="appName">RSS Ticker</span>
+    <div class="currentSource"></div>
+    <button class="playButton">►</button>
+</header>
+
+<div id="content">
+    <div class="progress">
+        <button class="playButton">►</button>
+    </div>
+    <div id="articles"></div>
+</div>
+</body>
+</html>

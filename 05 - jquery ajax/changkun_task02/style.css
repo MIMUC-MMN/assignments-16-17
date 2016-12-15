@@ -27,10 +27,13 @@ header {
   margin: 0 auto;
   width: 70%;
   padding: 5px;
+  border-style: solid;
+  border-color: #EEEEEE;
 }
 #source img:hover {
   border-style: solid;
   border-color: #DDDDDD;
+  cursor: pointer;
 }
 
 #content {

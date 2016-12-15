@@ -2,7 +2,8 @@
   "name": "Extended Spotify Search",
   "homepage": "https://changkun.us",
   "authors": [
-    "Changkun Ou <hi@changkun.us>"
+    "Changkun Ou <hi@changkun.us>",
+    "Tobias Seitz <tobi@tobitobi.de>"
   ],
   "main": "",
   "license": "MIT",

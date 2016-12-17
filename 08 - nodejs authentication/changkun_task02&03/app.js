@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+var passport = require('passport');
 var auth = require('./routes/auth');
 
 // ******************************************************
@@ -42,7 +42,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // forwarder if the user is logged in
 app.use('/', [express.static(path.join(__dirname, 'public'))]);
 app.use('/secret', [auth.ensureAuthenticated, express.static(path.join(__dirname, 'secret'))]);
@@ -52,7 +51,7 @@ app.use('/auth', auth);
 // ******************************************************
 // ***
 // TODO: insert add the router of the shoot module (just like auth).
-app.use('/shoot', shoot);
+app.use('/shoot', [auth.ensureAuthenticated, shoot]);
 // ***
 // ******************************************************
 
@@ -63,9 +62,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
-
 
 // error handlers
 

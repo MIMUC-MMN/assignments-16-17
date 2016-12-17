@@ -22,14 +22,6 @@ const routes = {
 // where is the directory that should hold the screenshots? (relative to the module!)
 const shootRootDirectory = '../shoot';
 
-// define where we want to put the screenshots (png files).
-const screenshotsDirectory = path.join(__dirname, shootRootDirectory, routes.retrieve);
-
-// first, make sure that the directory exists.
-if (!fs.existsSync(screenshotsDirectory)) {
-  fs.mkdirSync(screenshotsDirectory);
-}
-
 // renders the public directory as configured in shootRootDirectory
 router.use(routes.root, express.static(path.join(__dirname, shootRootDirectory)));
 
@@ -50,11 +42,22 @@ router.get(routes.create, function(req, res) {
   var targetURL = req.query.url || '';
   // the regex strips the "https", dots and slashes from the targetURL
   var fileName = targetURL.replace(/(^http[s]?:\/\/)|[.\/\\]/ig, '') + '.png';
+
+  // NEW: img folder named as username
+  // define where we want to put the screenshots (png files).
+  const screenshotsDirectory = path.join(__dirname, shootRootDirectory, routes.retrieve+'/'+req.user.username);
+
+  // first, make sure that the directory exists.
+  if (!fs.existsSync(screenshotsDirectory)) {
+    fs.mkdirSync(screenshotsDirectory);
+  }
+
   // screenshot output path = full file path.
   var output = path.join(screenshotsDirectory, fileName);
 
   // tell the client where the file lies.
-  var responsePath = req.baseUrl + routes.retrieve + '/' + fileName;
+  // NEW: img path mark as username
+  var responsePath = req.baseUrl + routes.retrieve + '/' + req.user.username + '/' + fileName;
 
   var responseJSON = {
     status: 'ok'

@@ -11,6 +11,7 @@ var auth = require('./routes/auth');
 // ******************************************************
 // ***
 // TODO: require the shoot module.
+var shoot = require('./routes/shoot');
 // ***
 // ******************************************************
 
@@ -51,6 +52,7 @@ app.use('/auth', auth);
 // ******************************************************
 // ***
 // TODO: insert add the router of the shoot module (just like auth).
+app.use('/shoot', shoot);
 // ***
 // ******************************************************
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stegano Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    textarea {
+      display: block;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      min-height: 100px;
+      margin-bottom: 16px;
+      padding: 5px;
+      min-width: 50%;
+    }
+    .card img {
+      display: block;
+      margin: 16px 0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <span class="appName">Stegano Service</span>
+</header>
+
+<!--
+
+  Warning: this file only works if there is a path /stegano/hide and /stegano/seek on the back-end.
+
+  -->
+<div class="card">
+  <form action="/stegano/hide" method="post" id="mainForm">
+    <textarea name="message" placeholder="Enter your secret message here." id="message"></textarea>
+    <button type="submit">Save</button>
+  </form>
+</div>
+<div class="card" id="output">
+  Image with secret message will appear here.
+</div>
+<div class="card" id="secretMessage">
+  Your secret message will appear here.
+</div>
+
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+
+<script>
+
+  window.onload = function() {
+
+    var form = document.getElementById('mainForm');
+    var output = document.getElementById('output');
+    var messageField = document.getElementById('message');
+    var secretMessageContainer = document.getElementById('secretMessage');
+
+    // submit handler.
+    form.onsubmit = function(e) {
+      // prevents that the page reloads after submitting the form.
+      e.preventDefault();
+
+      // we generate a request to encode our message into an image.
+      var encodeReq = new XMLHttpRequest();
+      encodeReq.open('POST', form.getAttribute('action'));
+      encodeReq.setRequestHeader('Content-type', 'application/json');
+
+      encodeReq.addEventListener('readystatechange', function() {
+        if (encodeReq.readyState === 4) { // request is done.
+
+          // we expect a JSON, but the responseText is a string, so we need to parse it first.
+          var response = JSON.parse(encodeReq.responseText);
+
+          // the encoding worked, if the response contains a "path" property.
+          if(response.path) {
+            // now do some DOM manipulation to show the image.
+            var img = document.createElement('img');
+            var text = document.createTextNode('Click image to decode message.');
+
+            img.setAttribute('src', response.path);
+            // this is important if we want to decode the message
+            img.setAttribute('id', response.id);
+            // we also need to know the size of the encoded message and store the information in the data attribute.
+            img.setAttribute('data-size', response.size);
+
+            output.innerHTML = ''; // flush the content.
+
+            // stick things together
+            output.appendChild(img);
+            output.appendChild(text);
+
+            // if the user clicks the image, we want to decode its message.
+            // we do this by sending a request to /stegano/seek with the proper parameters.
+            // because we *retrieve* information, we use GET instead of POST.
+            img.addEventListener('click', function() {
+              var decodeReq = new XMLHttpRequest();
+              // URL has to be assembled a little bit more inconveniently.
+              // we read the id and the size of the secret message from the attributes of the image.
+              decodeReq.open('GET', '/stegano/seek?id=' + this.id + '&size=' + this.getAttribute('data-size'));
+              decodeReq.addEventListener('readystatechange', function() {
+                // parse the response first (remember, it's a string)
+                var jsonResponse = JSON.parse(decodeReq.responseText);
+                if(decodeReq.readyState === 4) {
+                  // show the message.
+                  secretMessageContainer.innerHTML = jsonResponse.message;
+                }
+              });
+              decodeReq.send();
+            });
+          }
+          else { // the watermarking / steganography module failed so it does not return a 'path' property.
+            output.innerHTML = 'Sorry, something went wrong.';
+          }
+        }
+      });
+
+      // pass our message to the request. We need to serialize the data (it has to be sent as string).
+      encodeReq.send(JSON.stringify({message: messageField.value}));
+    }
+  }
+</script>
+</body>
+</html>

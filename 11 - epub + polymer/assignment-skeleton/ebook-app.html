@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>eBook App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- common stylesheet -->
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+
+  <!-- Use POLYGIT to avoid bower for this small example. -->
+  <base href="https://polygit.org/components/">
+  <!-- polyfill for browsers that don't support web components fully, yet.-->
+  <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link href="polymer/polymer.html" rel="import">
+
+  <dom-module id="e-book">
+    <template>
+      <style>
+        input {
+          width: 50%;
+          font: 14px 'Roboto', sans-serif;
+        }
+
+        img.large {
+          max-width: 100%;
+          height: 300px;
+          display: block;
+        }
+
+        img.thumbnail {
+          max-width: 100px;
+          cursor: pointer;
+        }
+      </style>
+      <div>
+        <!-- TODO a) bind the name and author variables to the view. -->
+
+        <h2>???</h2>
+        <h3>By [[author]]</h3>
+
+        <div>
+
+
+          <!-- TODO b) add actual image sources-->
+          <!-- TODO c) register event handler for the "tap" event. -->
+          <img class="thumbnail">
+
+
+        </div>
+        <!--
+         We bind the imageURL variable to the src property of this image.
+        -->
+        <img src="[[imageURL]]" class="large">
+        <p>
+          <label>
+            Edit Book Title:
+            <!--
+               This is a special way to bind the value of a native <input> to a variable
+               In this case, the "name" variable receives a new "value" on each "input" event.
+               Read the documentation here: https://www.polymer-project.org/1.0/docs/devguide/data-binding#two-way-native
+            -->
+            <input value="{{name::input}}">
+          </label>
+        </p>
+      </div>
+    </template>
+    <script>
+      // we need to use this callback for browsers that need the webcomponents.js polyfill (Firefox).
+      // this is only necessary when we use Polygit and only have one file
+      HTMLImports.whenReady(function() {
+        Polymer({
+          is: 'e-book',
+          ready: function() {
+            // TODO e) add values to the three (member) variables name, author, imageURL
+          },
+          // TODO e) implement an event handler function that is called when one of the thumbnails is tapped.
+          //         first define the name of the event handler function --> TODO c)
+          // TIP: the handler function receives an event object as parameter, like so: function(event) { ... }
+          //      --> you can use the event.target to read the source of the clicked thumbnail.
+        });
+      })
+    </script>
+  </dom-module>
+</head>
+
+<body>
+
+<header>E-Book App</header>
+<div class="card">
+  <e-book></e-book>
+</div>
+
+</body>
+</html>

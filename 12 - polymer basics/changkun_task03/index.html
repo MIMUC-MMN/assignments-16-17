@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music</title>
+    <!-- Polyfill Web Components for older browsers -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+
+    <!-- is there any global import file? -->
+
+    <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+
+    <!-- drawer -->
+    <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+
+    <!-- headerpanel -->
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+
+    <!-- button -->
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+
+    <!-- item -->
+    <link rel="import" href="bower_components/paper-item/paper-item.html">
+    <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
+
+    <!-- icon -->
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="bower_components/iron-icons/av-icons.html">
+
+    <!-- toolbar -->
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+    <!-- tabs -->
+    <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+    <!-- pages -->
+    <link rel="import" href="bower_components/iron-pages/iron-pages.html">
+    <link rel="import" href="bower_components/paper-material/paper-material.html">
+
+    <!-- card -->
+    <link rel="import" href="bower_components/paper-card/paper-card.html">
+    <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+
+    <!-- style -->
+    <link rel="import" href="bower_components/paper-style/default-theme.html">
+    <link rel="import" href="bower_components/paper-style/typography.html">
+
+    <!-- my compoments -->
+    <link rel="import" href="my-card.html">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<style is="custom-style">
+</style>
+<template id="main" is="dom-bind">
+
+
+    <paper-drawer-panel>
+
+        <!-- Drawer Scroll Header Panel -->
+        <paper-header-panel drawer fixed>
+
+            <!-- Drawer Toolbar -->
+            <paper-toolbar class="tall">
+                <div class="title">Menu</div>
+            </paper-toolbar>
+
+            <!-- Drawer Content -->
+            <paper-listbox selected="{{menuSelected}}">
+                <paper-icon-item class="fit">
+                    <iron-icon icon="icons:dashboard" item-icon></iron-icon> Favorate
+                </paper-icon-item>
+                <paper-icon-item class="fit">
+                    <iron-icon icon="av:radio" item-icon></iron-icon>Radio
+                </paper-icon-item>
+            </paper-listbox>
+        </paper-header-panel>
+
+        <!-- main Area -->
+        <paper-header-panel main fixed>
+
+            <!-- main Toolbar -->
+            <paper-toolbar class="tall">
+                <!-- toolbar icons -->
+                <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+
+                <div class="title">Music Library</div>
+
+                <paper-tabs id="tabs" class="bottom fit" selected="{{tabBarSelected}}">
+                    <paper-tab>Artists</paper-tab>
+                    <paper-tab>Albums</paper-tab>
+                    <paper-tab>Playlists</paper-tab>
+                </paper-tabs>
+
+            </paper-toolbar>
+            <div>
+                <iron-pages selected="{{tabBarSelected}}">
+                        <div id="artists">
+                            <p>Artists</p>
+                            <!-- stupid implementation, should use template is="dom-repeat" -->
+                            <paper-card image="{{artisturl}}">{{artistsname}}</paper-card>
+                            <paper-card image="{{artisturl}}">{{artistsname}}</paper-card>
+                            <paper-card image="{{artisturl}}">{{artistsname}}</paper-card>
+                            <paper-card image="{{artisturl}}">{{artistsname}}</paper-card>
+                            <paper-card image="{{artisturl}}">{{artistsname}}</paper-card>
+                            <paper-card image="{{artisturl}}">{{artistsname}}</paper-card>
+                        </div>
+                        <div id="albums">
+                            <p>Albums</p>
+                            <!-- stupid implementation, should use template is="dom-repeat" -->
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                            <paper-card image="{{albumsurl}}">{{albumsname}}</paper-card>
+                        </div>
+
+                        <div id="playlist">
+                            <p>Playlist</p>
+                            <paper-listbox selected="{{playlistSelected}}">
+                                <!-- stupid implementation, should use template is="dom-repeat" with JSON object -->
+                                <paper-icon-item>
+                                    <iron-icon icon=[[waitingSelect]] item-icon></iron-icon>
+                                    Best of Doobie Brothers
+                                </paper-icon-item>
+                                <paper-icon-item>
+                                    <iron-icon icon=[[waitingSelect]] item-icon></iron-icon>
+                                    Starred
+                                </paper-icon-item>
+                                <paper-icon-item>
+                                    <iron-icon icon="av:play-circle-outline" item-icon></iron-icon>
+                                    Chillout Music
+                                </paper-icon-item>
+                            </paper-listbox>
+                        </div>
+                </iron-pages>
+            </div>
+        </paper-header-panel>
+    </paper-drawer-panel>
+</template>
+<script>
+
+    // enum
+    palyingIcon = "av:play-circle-filled"
+    waitingIcon = "av:play-circle-outline"
+
+    // default value
+    main.tabBarSelected = 0;
+    main.playlistSelected = 0;
+    main.waitingSelect = waitingIcon
+
+    main.artisturl="https://changkun.us/images/logo.png";
+    main.artistsname="Jack";
+    main.albumsurl="https://changkun.us/images/posts/87/2.png";
+    main.albumsname="DragonBorn"
+
+</script>
+</body>
+</html>

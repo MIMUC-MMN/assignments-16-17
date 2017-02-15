@@ -8,14 +8,14 @@
 
 ### a)
 
-Low level metadata.
+High-Level Structured Metadata.
 
-Keywords is a kind of low level metadata, and it isn't a well structure to describe the whole content.
+Keywords is humanreadable for the actual content of the video.
 
 ### b)
 
-1. starting time
-2. clip length
+1. Retrieval from external databases;
+2. Manual addition
 
 ### c)
 
@@ -29,9 +29,9 @@ No. MPEG-7 is not aimed at any one application inparticular; rather the elements
 
 #### iii.
 
-Core Description Profile.
+Simple Metadata Profile.
 
-It is a collections of multimedia content and also a description of relationships.
+SMP is used for single document or simple collection, which is suitable for this case (independent video clips).
 
 ### d)
 
@@ -97,7 +97,7 @@ session_start();
 $pw = password_hash('swordfish', PASSWORD_DEFAULT);
 
 // b. verification only if 
-if (isset($_POST['alias']) && isset($_POST['pass'])) {
+if (isset($_POST['alias']) && isset($_POST['pass']) && isset($_POST['sub'])) {
   // c. use password_verify
   if (password_verify($_POST['pass'], $pw)) {
     // d. update session
@@ -111,7 +111,7 @@ if (isset($_POST['alias']) && isset($_POST['pass'])) {
 // f. session destroy
 if (isset($_POST['out'])) {
   session_destroy();
-  $_SESSION = array();
+  $_SESSION = array(); // or session_unset();
 }
 
 
@@ -240,7 +240,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.post('/updateprice', (req, res) => {
-  if (req.body.model && req.body.price) {
+  if (req.body.model && req.body.price === undefined) {
     prices[req.body.model] = req.body.price;
   }
   res.send(prices);
@@ -312,14 +312,14 @@ CDN essentially build a bridge between user and content provider, it cached the 
 
 ### b)
 
-1. IPTV is a stream media service based on Internet Protocol;
+1. IPTV is a stream media service based on Internet Protocol and it is part of HbbTV;
 2. HbbTV is connected to Broadband Internet and also a bi-directional internet channel, which includes traditional broadcast TV, Internet and connected devices.
 
 ### c)
 
 #### i.
 
-1. claim the picture is a derivative works based on others work (give the original author contact information)
+1. claim the picture is a derivative works based on others work (give the original author contact information), i.e. contribution is required.
 2. share with same lisence.
 
 #### ii.

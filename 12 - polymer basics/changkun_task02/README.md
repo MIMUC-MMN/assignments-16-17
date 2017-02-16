@@ -32,6 +32,8 @@ Progressive Web Apps are user experiences that have the reach of the web, and ar
 - Fast - Respond quickly to user interactions with silky smooth animations and no janky scrolling.
 - Engaging - Feel like a natural app on the device, with an immersive user experience.
 
+> The main goal is to let a web app run offline with the help of a service worker.
+
 ## Critical Rendering Path
 
 It is the series of events that must take place to render (display) the initial view of a webpage.

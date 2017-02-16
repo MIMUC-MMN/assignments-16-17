@@ -8,7 +8,7 @@ Adaptive Bitrate based on viewers' network quality.
 
 ## c) Why is reducing buffering desirable?
 
-It reduced buffering by more than 50 percent globally, and by as much as 80 percent on heavily congested networks.
+Since the user has to wait less untile the content is playing.
 
 ## d) What does “heavily congested networks” mean?
 

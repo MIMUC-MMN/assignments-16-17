@@ -4,10 +4,10 @@
 
 |Search/Filter Criterion:|Type of metadata:|
 |:--:|:--:|
-|Keywords|low-level|
-|starting time|low-level|
-|length of clip|low-level|
-|slip summary|high-level|
+|Keywords|High-level Structred|
+|starting time|Low-level|
+|length of clip|Low-level|
+|slip summary|High-level Unstrectured|
 
 ###  b) So far, the company relies on its employees to manually create and aggregate metadata about any video clip. Explain how this process could be speed up. Include at least one concrete technology in your answer.
 

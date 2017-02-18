@@ -1,7 +1,7 @@
 > 
 > Sample solution provided by **Changkun Ou**
 > 
-> Note that it may incorrect.
+> Note that it may be incorrect.
 > 
 
 ## Task 1
@@ -15,7 +15,9 @@ Keywords is humanreadable for the actual content of the video.
 ### b)
 
 1. Retrieval from external databases;
-2. Manual addition
+2. Automatic generation.
+
+> Manual Addition is not an answer due to this senario already used this method.
 
 ### c)
 
@@ -29,16 +31,24 @@ No. MPEG-7 is not aimed at any one application inparticular; rather the elements
 
 #### iii.
 
-Simple Metadata Profile.
+Core Description Profile.
 
-SMP is used for single document or simple collection, which is suitable for this case (independent video clips).
+It's a coolection of multimedia content and also a description of relationships, suitable for large media collection.
+
+> We could also argue the following selection, because the Simple Metadata Profile can also use for metadata tagging. However, It usually used for small media collection, but Core Description Profile is used for large media collection, which means CDP is better than SMP in this senario (Company).
+
+> Simple Metadata Profile.
+
+> SMP is used for single document or simple collection, which is suitable for this case (independent video clips).
+
+
 
 ### d)
 
 ||description scheme|example|
 |:--:|:--:|:--:|
-|temporal|Video Segment DS|a clip describe how much of a normal manager salaries|
-|spatial|Still Region DS|a frame contains how many different manager|
+|temporal|Video Segment DS|a part of a video|
+|spatial|Still Region DS|a frame contains different marked manager|
 |spatiotemporal|Moving Region DS|A time range describe a manger show up from which time stamp to another stamp|
 
 ### e)
@@ -63,12 +73,14 @@ SMP is used for single document or simple collection, which is suitable for this
 
 **Explanation**: client side is good enough to implement this feature, considering Dropbox `zxcvbn`. Another reason for this is to relieve queries of server.
 
+> We could also sign cross two of them, but the explanation should  adapte for this choice: Client side for a simple strength virify, but server side to perform another strong strength verification.
+
 *Flight booking*
 
 - [ ] client side
 - [x] server side
 
-**Explanation**: booking is related to the remain ticket repository, server side should make the final dicition of how tickets assign to someone.
+**Explanation**: booking is related to the remain ticket repository, server side should make the final dicition of how tickets assign to someone. (Or this action related to operate database)
 
 ### b)
 
@@ -210,6 +222,7 @@ if (!isset($_SESSION['alias'])) {
 #### i.
 
 LAMP: Linux + Apache + MySQL + PHP
+
 MEAN: MongoDB + Express + Angular + NodeJS
 
 #### ii.
